@@ -6,4 +6,4 @@ elif
     cd ./uploads/
 fi
 clear
-python3 /home/pi/uploads/basic_http_server.py.py 8080
+python3 /home/pi/uploads/basic_http_server.py 8080
