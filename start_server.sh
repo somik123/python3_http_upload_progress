@@ -1,9 +1,16 @@
 #!/bin/sh
-if [[ -d ./uploads ]] then
-    cd ./uploads/
-elif
-    mkdir 0755 ./uploads/
-    cd ./uploads/
+
+# Set your scripts directory here
+Scripts_Path="/home/pi/http_server/"
+
+# Set your uploads folder name here. 
+# It'll be located in the scripts directory unless you change it.
+Uploads_Path=$Scripts_Path"uploads"
+
+if ! [ -d $Uploads_Path ] 
+then
+    mkdir $Uploads_Path
 fi
-clear
-python3 /home/pi/uploads/basic_http_server.py 8080
+cd $Uploads_Path
+#clear
+python3 $Scripts_Path"basic_http_server.py" 8080
