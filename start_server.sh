@@ -12,5 +12,10 @@ then
     mkdir $Uploads_Path
 fi
 cd $Uploads_Path
-#clear
+clear
+echo " - - - - - - - - - - - - - - - - - - - - - - - - - -"
+echo " - - - ONLY FOR USE IN DEVELOPMENT ENVIORNMENT - - -"
+echo " - - -      NEVER USE THIS IN PRODUCTION       - - -"
+echo " - - - - - - - - - - - - - - - - - - - - - - - - - -"
+echo " "
 python3 $Scripts_Path"basic_http_server.py" 8080
