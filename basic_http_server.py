@@ -3,6 +3,8 @@
 """
 Basic HTTP Server With Upload Progress Bar
 
+Based on codes from: https://gist.github.com/UniIsland/3346170
+
 """
  
  
@@ -74,6 +76,9 @@ class SimpleHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         r, info = self.deal_post_data()
         print((r, info, "by: ", self.client_address))
         f = BytesIO()
+        """
+        Not required for Ajax
+        
         f.write(b'<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">')
         f.write(b"<html>\n<title>Upload Result Page</title>\n")
         f.write(b'<style type="text/css">\n')
@@ -82,16 +87,21 @@ class SimpleHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         f.write(b'</style>\n')
         f.write(b"<body>\n<h2>Upload Result Page</h2>\n")
         f.write(b"<hr>\n")
+        """
         if r:
-            f.write(b"<strong>Success!</strong>")
+            f.write(b"Success")
         else:
-            f.write(b"<strong>Failed!</strong>")
+            f.write(b"Failed")
+        """
+        Not required for Ajax
+        
         f.write(info.encode())
         f.write(("<br><br><a href=\"%s\">" % self.headers['referer']).encode())
         f.write(b"<button>Back</button></a>\n")
         f.write(b"<hr><small>Powered By: bones7456<br>Check new version ")
         f.write(b"<a href=\"https://gist.github.com/UniIsland/3346170\" target=\"_blank\">")
         f.write(b"here</a>.</small></body>\n</html>\n")
+        """
         length = f.tell()
         f.seek(0)
         self.send_response(200)
@@ -217,7 +227,7 @@ class SimpleHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                  'content="text/html; charset=%s">' % enc).encode(enc))
         f.write(("<title>Directory listing for %s</title>\n" % displaypath).encode(enc))
         f.write(b' <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> \n')
-        f.write(b" <script> function postFile() { var formdata = new FormData(); formdata.append('file', $('#file')[0].files[0]); var request = new XMLHttpRequest(); request.upload.addEventListener('progress', function (e) { var file1Size = $('#file')[0].files[0].size; if (e.loaded <= file1Size) { var percent = Math.round(e.loaded / file1Size * 100); $('#progress-bar-file').width(percent + '%').html(percent + '%'); }  if(e.loaded == e.total){ $('#progress-bar-file').width(100 + '%').html(100 + '%'); location.href='/'; } }); request.open('post', '/'); request.timeout = 45000; request.send(formdata); } </script> \n")
+        f.write(b" <script> function postFile() { var formdata = new FormData(); formdata.append('file', $('#file')[0].files[0]); var request = new XMLHttpRequest(); request.upload.addEventListener('progress', function (e) { var file1Size = $('#file')[0].files[0].size; if (e.loaded <= file1Size) { var percent = Math.round(e.loaded / file1Size * 100); $('#progress-bar-file').width(percent + '%').html(percent + '%'); }  if(e.loaded == e.total){ $('#progress-bar-file').width(100 + '%').html(100 + '%'); location.href='.'; } }); request.open('post', '/'); request.timeout = 45000; request.send(formdata); } </script> \n")
         f.write(b'<style type="text/css">\n')
         f.write(b'* {font-family: Helvetica; font-size: 16px; }\n')
         f.write(b'a { text-decoration: none; }\n')
@@ -228,7 +238,7 @@ class SimpleHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         f.write(b'table {\n  border-collapse: separate;\n}\n')
         f.write(b'th, td {\n  padding:0px 10px;\n}\n')
         f.write(b' .progress-wrapper { width: 300px; } \n')
-        f.write(b' .progress-wrapper .progress { background-color:green; width:0%; padding:5px 0px 5px 0px; } \n')
+        f.write(b' .progress-wrapper .progress {color: white; background-color:green; width:0%; padding:5px 0px 5px 0px; } \n')
         f.write(b'</style>\n')
         f.write(("<body>\n<h2>Directory listing for %s</h2>\n" % displaypath).encode(enc))
         f.write(b"<hr>\n")
