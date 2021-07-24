@@ -377,7 +377,10 @@ if HOST == '':
 Handler = SimpleHTTPRequestHandler
 
 with socketserver.TCPServer((BIND, PORT), Handler) as httpd:
-	serve_message = "Serving HTTP on {host} port {port} (http://{host}:{port}/) ..."
+	cmd = "hostname -I | cut -d\' \' -f1"
+	IP = subprocess.check_output(cmd, shell=True).decode("utf-8")
+	IP = IP.strip()
+	serve_message = "Access the webpage by going to http://{IP}:{port}/ from your browser."
 	print(serve_message.format(host=HOST, port=PORT))
 	httpd.serve_forever()
 
