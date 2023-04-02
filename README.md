@@ -4,6 +4,7 @@ Basic HTTP server with Upload Progress Bar
 You can edit the **start_server.sh** script and execute it to start the server. You can also simply run it by providing the port as follows:
 
 ```
+wget https://raw.githubusercontent.com/somik123/python3_http_upload_progress/main/basic_http_server.py
 python3 /path/to/file/basic_http_server.py 8080
 ```
 
